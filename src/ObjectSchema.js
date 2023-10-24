@@ -1,17 +1,12 @@
 export default class ObjectSchema {
-  constructor(validators = {}) {
-    this.validators = validators;
+  isValid(el) {
+    return Object.keys(this.userShape)
+      .map((key) => this.userShape[key].isValid(el[key]))
+      .every((bool) => bool === true);
   }
 
-  shape(fields) {
-    return new ObjectSchema(fields);
-  }
-
-  isValid(value) {
-    const keys = Object.keys(value);
-    if (keys.length !== Object.keys(this.validators).length) {
-      return false;
-    }
-    return keys.every((key) => this.validators[key].isValid(value[key]))
+  shape(userShape) {
+    this.userShape = userShape;
+    return this;
   }
 }
