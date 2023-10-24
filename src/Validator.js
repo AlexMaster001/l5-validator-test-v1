@@ -1,21 +1,27 @@
-import NumberSchema from "./NumberSchema.js";
-import ArraySchema from "./ArraySchema.js";
-import ObjectSchema from "./ObjectSchema.js";
+/* eslint-disable class-methods-use-this */
+import NumberSchema from './NumberSchema.js';
+import ArraySchema from './ArraySchema.js';
+import StringSchema from './StringSchema.js';
+import ObjectSchema from './ObjectSchema.js';
 
-class Validator {
+export default class Validator {
+  constructor() {
+    this.rules = [];
+  }
+
   number() {
-    const validator = (value) => typeof value === 'number';
-    return new NumberSchema([validator]);
+    return new NumberSchema();
   }
 
   array() {
-    const validator = (value) => Array.isArray(value);
-    return new ArraySchema([validator]);
+    return new ArraySchema();
+  }
+
+  string() {
+    return new StringSchema();
   }
 
   object() {
     return new ObjectSchema();
   }
 }
-
-export default Validator;
